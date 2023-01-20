@@ -1,0 +1,57 @@
+/* reset CSS */
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: sans-serif;
+  background-color: #fff;
+}
+
+h1 {
+  text-align: center;
+  margin: 40px auto;
+  letter-spacing: 0.25em;
+  color: #093145;
+}
+#container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 600px;
+}
+/* styling for question box area  */
+.q-box {
+    width: 100%;
+    height: auto;
+    border: 1px solid #999;
+    border-radius: 5px;
+    justify-content: space-around;
+    margin: 2em auto; 
+    display: flex;
+    flex-direction: column;
+    /* display: none; */
+}
+.q-box .btn {
+    background-color: rgb(94, 14, 94);
+    color: #fff;
+    padding: 5px;
+    margin: 5px ;
+    border-radius: 5px;
+    width: 50%;
+    max-width: 350px;
+
+}
+.q-box .btn:hover {
+    background-color: rgb(95, 65, 95);
+    cursor: pointer;
+}
+#correct, #wrong {
+    color: #999;
+    font-size: 18px;
+    border-top: 1px solid #999;
+    width: 100%;
+    /* display: none; */
+}
+.visible {
+    display: block;
+}
