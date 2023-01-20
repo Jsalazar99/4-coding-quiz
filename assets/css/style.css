@@ -45,6 +45,9 @@ h1 {
     background-color: rgb(95, 65, 95);
     cursor: pointer;
 }
+#score {
+  
+}
 #correct, #wrong {
     color: #999;
     font-size: 18px;
