@@ -1,7 +1,10 @@
+var questionElement = document.querySelector("#q-1");
+var currentQuestionIndex = 0;
+var titleElement = document.querySelector("#question-title");
 // object container for questions / answers
 const questionInfo = [
     {
-        question: "Q1 goes here",
+        question: "Which HTML tag is a link?",
         options: ["<link>", "<body>", "<img>", "<div>"],
         answer: "answer 1",
     },
@@ -44,21 +47,22 @@ let start = document.querySelector("#start-quiz");
 start.addEventListener("click", startQuiz);
 
 function startQuiz() {
-    introMenu.classList.remove("visible");
+    introMenu.classList.add("hide");
     qSection.classList.add("visible");
-    runQuestions();
+    // runQuestions();
     startTimer();
+    getQuestion();
 }
 
 console.log(startQuiz);
 // removes intro text/section and displays random question 
-function runQuestions() {
+/* function runQuestions() {
     qText.textContent = questionInfo[index].question;
     questionOne.textContent = questionInfo[index].options[0];
     questionTwo.textContent = questionInfo[index].options[1];
     questionThree.textContent = questionInfo[index].options[2];
     questionFour.textContent = questionInfo[index].options[3];
-}
+} */
 // timer starts - setInterval / clearInterval timer 
 function startTimer() {
     timerCount = setInterval(function() {
@@ -72,25 +76,40 @@ function startTimer() {
     }, 1000);
 }
 
-let btnClick = document.querySelector(".btn");
+// let btnClick = document.querySelector("choiceNode");
 
-function nextQuestion() {
-/* buttons clicked to run questions function */
-    for (let i = 0; i < questionInfo.length; i++) {
-        const nextQ = questionInfo[i];
+function getQuestion() {
+    var currentQuestion = questionInfo[currentQuestionIndex];
+    var questionTitle = currentQuestion.question;
+    questionElement.innerHTML = "<p>" + currentQuestion.question + "</p>";
+    // titleElement.appendChild(questionTitle);
+    // questionTitle.innerHTML = "<p>" + currentQuestion.question + "</p>";
+// buttons clicked to run questions function 
+// answer question - presents the next question 
+    for (let i = 0; i < currentQuestion.options.length; i++) {
+        const nextQ = currentQuestion.options[i];
+        var choiceNode = document.createElement("button");
+        choiceNode.setAttribute("class", "btn");
+        choiceNode.setAttribute("value", nextQ);
+        choiceNode.textContent = nextQ;
+        questionElement.appendChild(choiceNode);
+        
     }
-nextQuestion();
+
 }
-btnClick.addEventListener("click", nextQuestion)
+// getQuestion();
+// choiceNode.addEventListener("click", checkAnswer);
 
 /*
 Local Storage for results 
  - input from prompt */
 // for loop might go in here 
 
-
+// answer question - display "correct" or "wrong"
+// answer incorrectly, and time is subtracted from timer 
 let correctDiv = document.getElementById("correct");
 let wrongDiv = document.getElementById("wrong");
+
 // function if/else - check if button clicked is correct answer 
 function checkAnswer() {
     if (options === answer) {
@@ -105,35 +124,22 @@ function checkAnswer() {
         // display wrong div 
         wrongDiv.addClass("visible");
     }
+    currentQuestionIndex++;
 }
 
 /*
 WHEN all questions are answered or the timer reaches 0
-
-THEN the game is over
-WHEN the game is over
-THEN I can save my initials and my score
-
-answer question - presents the next question 
-
-answer question - display "correct" || "wrong"
-answer incorrectly, and time is subtracted from timer 
-
-WHEN all questions are answered or the timer reaches 0
-
 THEN the game is over
 WHEN the game is over
 THEN I can save my initials and my score
 
 
-*/
-/*
 localStorage.setItem(initials, score);
 
 function endQuiz() {
-
     window.alert("Your score: \nCorrect: " + corAnswers + "\nIncorrect: " + wrongAnswers);
-
+    
+    scoreSection.addClass("visible");
     timerSection.textContent = "Time is up! Quiz over.";
 };
 */
