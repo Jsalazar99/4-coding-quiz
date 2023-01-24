@@ -85,10 +85,10 @@ function getQuestion() {
     questionElement.innerHTML = "<p>" + currentQuestion.question + "</p>";
     // titleElement.appendChild(questionTitle);
     // questionTitle.innerHTML = "<p>" + currentQuestion.question + "</p>";
-    // buttons clicked to run questions function 
+    // buttons clicked to run questions function  
     // answer question - presents the next question 
     for (let i = 0; i < currentQuestion.options.length; i++) {
-        const nextQ = currentQuestion.options[i];
+        let nextQ = currentQuestion.options[i];
         var choiceNode = document.createElement("button");
         choiceNode.setAttribute("class", "btn");
         choiceNode.setAttribute("value", nextQ);
@@ -100,17 +100,19 @@ function getQuestion() {
 
 }
 // getQuestion();
-var nextBtn = document.querySelector(".btn");
+//var nextBtn = document.querySelector(".btn");
+//document.querySelector(".btn").addEventListener("click", getQuestion);
 //let start = document.querySelector("#start-quiz");
-if (nextBtn) {
+/* if (nextBtn) {
     nextBtn.addEventListener("click", function (event) {
 
         alert("function works!");
         //currentQuestion++;
-        //checkAnswer();
-    });
-    console.log(nextBtn);
-}
+        // checkAnswer();
+    }); 
+} */
+//console.log(nextBtn);
+
 // use event delegation in div container - activity 10 
 // use event.target 
 // chek if textcontent of button is equak to correct answer
@@ -144,6 +146,9 @@ function checkAnswer() {
     currentQuestionIndex++;
     getQuestion();
 }
+
+document.querySelector("#q-1").addEventListener("click", getQuestion);
+//console.log(getQuestion);
 
 /*
 WHEN all questions are answered or the timer reaches 0
