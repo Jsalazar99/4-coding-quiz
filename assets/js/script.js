@@ -10,27 +10,27 @@ const questionInfo = [
         answer: "<link>",
     },
     {
-        question: "Q2 goes here",
-        options: ["option 1", "option 2", "option 3", "option 4"],
-        answer: "answer 2",
+        question: "What are arrays used for?",
+        options: ["HTML stuff", "CSS stuff", "Git stuff", "Storing multiple values"],
+        answer: "Storing multiple values",
     },
     {
-        question: "Q3 goes here",
-        options: ["option 1", "option 2", "option 3", "option 4"],
-        answer: "answer 3",
+        question: "What's one way to debug your code?",
+        options: ["Terminal prompt", "Console Log", "Bootstrap", "jQuery"],
+        answer: "Console Log",
     },
     {
-        question: "Q4 goes here",
-        options: ["option 1", "option 2", "option 3", "option 4"],
-        answer: "answer 4",
+        question: "Which character is associated with jQuery?",
+        options: ["#", "@", "$", "&"],
+        answer: "$",
     }
 ];
 // declare all variables here 
 var introMenu = document.querySelector("#intro-menu");
 var qSection = document.querySelector(".q-box");
 var qText = document.querySelector("#qText");
-let question = questionInfo.question;
-let answer = questionInfo.answer;
+let question = questionInfo[currentQuestionIndex].question;
+let answer = questionInfo[currentQuestionIndex].answer;
 // var index = 0;
 var timerCount = 75;
 var timerText = document.querySelector("#timer-text");
@@ -67,7 +67,7 @@ function startTimer() {
         timerCount--;
         timerText.textContent = "Time left: " + timerCount;
 
-        if (timerCount <= 0) {
+        if (timerCount === 0) {
             // (timerCount);
             endQuiz();
         }
@@ -81,6 +81,7 @@ function getQuestion() {
     var questionTitle = currentQuestion.question;
     
     questionElement.innerHTML = "<p>" + currentQuestion.question + "</p>";
+    answer = currentQuestion.answer;
     // titleElement.appendChild(questionTitle);
     // questionTitle.innerHTML = "<p>" + currentQuestion.question + "</p>";
     // buttons clicked to run questions function  
@@ -94,25 +95,12 @@ function getQuestion() {
         questionElement.appendChild(choiceNode);
 
         choiceNode.addEventListener("click", checkAnswer);
-        currentQuestionIndex++;
+        
     }
+    currentQuestionIndex++;
     //  console.log(getQuestion);
     //document.querySelector("#q-1").addEventListener("click", getQuestion);
 }
-// getQuestion();
-//var nextBtn = document.querySelector(".btn");
-//document.querySelector(".btn").addEventListener("click", getQuestion);
-//let start = document.querySelector("#start-quiz");
-/* if (nextBtn) {
-    nextBtn.addEventListener("click", function (event) {
-
-        alert("function works!");
-        
-       
-    }); 
-} */
-//console.log(nextBtn);
-
 // use event delegation in div container - activity 10 
 // use event.target 
 // chek if textcontent of button is equak to correct answer
@@ -126,18 +114,20 @@ function getQuestion() {
 
 // answer question - display "correct" or "wrong"
 // answer incorrectly, and time is subtracted from timer 
-
-function correctButton(nextQ) {
+/* 
+function correctButton(answer) {
     return nextQ.textContent === questionInfo[currentQuestionIndex].answer;
-
+    alert("function works!");
 }
+*/
 // function if/else - check if button clicked is correct answer 
 function checkAnswer(event) {
     let correctDiv = document.getElementById("correct");
     let wrongDiv = document.getElementById("wrong");
-    let correctValue = event.target.textContent;
+
+    // let correctValue = event.target.textContent;
     
-    if (correctValue === questionInfo[currentQuestionIndex].answer) {
+    if (event.target.value === answer) {
         score++;
         // on to next question 
         correctDiv.classList.add("visible");
@@ -149,8 +139,13 @@ function checkAnswer(event) {
         // display wrong div 
         wrongDiv.classList.add("visible");
     }
-    currentQuestionIndex++;
-    getQuestion();
+    if (currentQuestionIndex < questionInfo.length) {
+        getQuestion();
+    }
+    else {
+        endQuiz();
+    }
+    
 }
 
 /*
@@ -174,7 +169,7 @@ function endQuiz() {
 
     clearInterval(timerCount);
 
-    scoreSection.addClass("visible");
+    scoreSection.classList.add("visible");
     scoreSection.textContent = finalScore + "<br>" + initials;
     timerSection.textContent = "Time is up! Quiz over.";
 };
@@ -182,6 +177,10 @@ function endQuiz() {
 // function for restart quiz 
 
 // function for clearing the scores 
+function clearScore() {
+    localStorage.clear();
+    scoreSection.textContent = "";
+}
 /* clearScore.addEventListener("click", function () {
     var clearScore = localStorage.clear();
     clearScore.textContent = "";
