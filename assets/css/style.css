@@ -13,6 +13,9 @@ h1 {
   letter-spacing: 0.25em;
   color: #093145;
 }
+#intro-menu {
+  margin: 2em auto;
+}
 #container {
   display: flex;
   flex-direction: column;
