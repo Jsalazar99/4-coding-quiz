@@ -6,6 +6,7 @@ const questionInfo = [
     {
         question: "Which HTML tag is a link?",
         options: ["<link>", "<body>", "<img>", "<div>"],
+        // answer: questionInfo.options[0],
         answer: "<link>",
     },
     {
@@ -25,15 +26,11 @@ const questionInfo = [
     }
 ];
 // declare all variables here 
-//var startQuiz = document.querySelector("#start-quiz");
 var introMenu = document.querySelector("#intro-menu");
 var qSection = document.querySelector(".q-box");
 var qText = document.querySelector("#qText");
-/* var questionOne = document.querySelector("#A");
-var questionTwo = document.querySelector("#B");
-var questionThree = document.querySelector("#C");
-var questionFour = document.querySelector("#D"); */
-
+let question = questionInfo.question;
+let answer = questionInfo.answer;
 // var index = 0;
 var timerCount = 75;
 var timerText = document.querySelector("#timer-text");
@@ -82,6 +79,7 @@ function startTimer() {
 function getQuestion() {
     var currentQuestion = questionInfo[currentQuestionIndex];
     var questionTitle = currentQuestion.question;
+    
     questionElement.innerHTML = "<p>" + currentQuestion.question + "</p>";
     // titleElement.appendChild(questionTitle);
     // questionTitle.innerHTML = "<p>" + currentQuestion.question + "</p>";
@@ -95,9 +93,11 @@ function getQuestion() {
         choiceNode.textContent = nextQ;
         questionElement.appendChild(choiceNode);
 
+        choiceNode.addEventListener("click", checkAnswer);
+        currentQuestionIndex++;
     }
     //  console.log(getQuestion);
-
+    //document.querySelector("#q-1").addEventListener("click", getQuestion);
 }
 // getQuestion();
 //var nextBtn = document.querySelector(".btn");
@@ -107,8 +107,8 @@ function getQuestion() {
     nextBtn.addEventListener("click", function (event) {
 
         alert("function works!");
-        //currentQuestion++;
-        // checkAnswer();
+        
+       
     }); 
 } */
 //console.log(nextBtn);
@@ -126,29 +126,32 @@ function getQuestion() {
 
 // answer question - display "correct" or "wrong"
 // answer incorrectly, and time is subtracted from timer 
-let correctDiv = document.getElementById("correct");
-let wrongDiv = document.getElementById("wrong");
 
+function correctButton(nextQ) {
+    return nextQ.textContent === questionInfo[currentQuestionIndex].answer;
+
+}
 // function if/else - check if button clicked is correct answer 
-function checkAnswer() {
-    if (options == question[currentQuestionIndex].answer) {
+function checkAnswer(event) {
+    let correctDiv = document.getElementById("correct");
+    let wrongDiv = document.getElementById("wrong");
+    let correctValue = event.target.textContent;
+    
+    if (correctValue === questionInfo[currentQuestionIndex].answer) {
         score++;
         // on to next question 
-        correctDiv.addClass("visible");
+        correctDiv.classList.add("visible");
         // display correct div 
     }
     else {
         // subtract time
         timerCount - 5;
         // display wrong div 
-        wrongDiv.addClass("visible");
+        wrongDiv.classList.add("visible");
     }
     currentQuestionIndex++;
     getQuestion();
 }
-
-document.querySelector("#q-1").addEventListener("click", getQuestion);
-//console.log(getQuestion);
 
 /*
 WHEN all questions are answered or the timer reaches 0
