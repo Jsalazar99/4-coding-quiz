@@ -114,23 +114,23 @@ function getQuestion() {
 
 // answer question - display "correct" or "wrong"
 // answer incorrectly, and time is subtracted from timer 
-/* 
-function correctButton(answer) {
-    return nextQ.textContent === questionInfo[currentQuestionIndex].answer;
-    alert("function works!");
+let correctDiv = document.getElementById("correct");
+let wrongDiv = document.getElementById("wrong");
+
+function hideMessage() {
+    correctDiv.classList.add("hide");
+    wrongDiv.classList.add("hide");
 }
-*/
+
 // function if/else - check if button clicked is correct answer 
 function checkAnswer(event) {
-    let correctDiv = document.getElementById("correct");
-    let wrongDiv = document.getElementById("wrong");
-
     // let correctValue = event.target.textContent;
     
     if (event.target.value === answer) {
         score++;
         // on to next question 
         correctDiv.classList.add("visible");
+        setTimeout(hideMessage, 2000);
         // display correct div 
     }
     else {
@@ -138,6 +138,7 @@ function checkAnswer(event) {
         timerCount - 5;
         // display wrong div 
         wrongDiv.classList.add("visible");
+        setTimeout(hideMessage, 2000);
     }
     if (currentQuestionIndex < questionInfo.length) {
         getQuestion();
@@ -147,14 +148,14 @@ function checkAnswer(event) {
     }
     
 }
-
+var score = document.getElementById("enter-final");
 /*
 WHEN all questions are answered or the timer reaches 0
 THEN the game is over */
 function highscores() {
     var initials = scoreSection.input[initials].value;
-    var score = document.getElementById("enter-final");
-    var finalScore = score;
+    
+    // var finalScore = score;
 }
 
 let submitName = document.getElementById("submit-name");
@@ -167,7 +168,7 @@ submitName.addEventListener("click", highscores);
 function endQuiz() {
    // window.alert("Your score: \nCorrect: " + corAnswers + "\nIncorrect: " + wrongAnswers);
 
-    clearInterval(timerCount);
+    clearInterval(timerInterval);
 
     scoreSection.classList.add("visible");
     scoreSection.textContent = finalScore + "<br>" + initials;
