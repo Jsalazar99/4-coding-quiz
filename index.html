@@ -10,33 +10,17 @@
 <body>
     <h1>Module 4 Quiz Challenge</h1>
     <main id="container">
+        <div id="intro-menu">
+            <h4>Intro text section is right here. There are 4 multiple choice questions.  Let's start the quiz.</h4>
+            <button id="start-quiz" name="submit">Start Quiz</button>
+        </div>
         <div class="q-box" id="q-1">
-            <h4>Quiz Question </h4>
-            <button class="btn" id="">Button</button>
-            <button class="btn" id="">Button</button>
-            <button class="btn" id="">Button</button>
-            <button class="btn" id="">Button</button>
-        </div>
-        <div class="q-box" id="q-2">
-            <h4>Quiz Question </h4>
-            <button class="btn" id="">Button</button>
-            <button class="btn" id="">Button</button>
-            <button class="btn" id="">Button</button>
-            <button class="btn" id="">Button</button>
-        </div>
-        <div class="q-box" id="q-3">
-            <h4>Quiz Question </h4>
-            <button class="btn" id="">Button</button>
-            <button class="btn" id="">Button</button>
-            <button class="btn" id="">Button</button>
-            <button class="btn" id="">Button</button>
-        </div>
-        <div class="q-box" id="q-4">
-            <h4>Quiz Question </h4>
-            <button class="btn" id="">Button</button>
-            <button class="btn" id="">Button</button>
-            <button class="btn" id="">Button</button>
-            <button class="btn" id="">Button</button>
+            <div id="question-title"></div>
+            <!--<h4 id="qText">Quiz Question goes here... </h4>
+            <button class="btn" id="A">Button 1</button>
+            <button class="btn" id="B">Button 2</button>
+            <button class="btn" id="C">Button 3</button>
+            <button class="btn" id="D">Button 4</button>-->
         </div>
         <div id="correct">
             <p>Correct! </p>
@@ -44,6 +28,23 @@
         <div id="wrong">
             <p>Wrong! </p>
         </div>
+        <div id="timer-section">
+            <p id="timer-text">75 seconds to start</p>
+        </div>
+        <div id="score-section">
+            <span id="enter-score">
+                <p>Enter your initials:</p>
+                <input type="text" placeholder="name">
+                <button id="submit-name">Submit</button>
+            </span>
+        </div>
+        <div id="final-section">
+            <p>Final scores:</p>
+            <button id="restart-quiz">Restart Quiz</button>
+            <button id="clear-scores">Clear Scores</button>
+            <span id="enter-final"></span>
+        </div>
+        
     </main>
     <script src="./assets/js/script.js"></script>
 </body>

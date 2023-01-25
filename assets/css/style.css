@@ -13,45 +13,66 @@ h1 {
   letter-spacing: 0.25em;
   color: #093145;
 }
+#intro-menu {
+  margin: 2em auto;
+}
 #container {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 600px;
 }
 /* styling for question box area  */
 .q-box {
-    width: 100%;
-    height: auto;
-    border: 1px solid #999;
-    border-radius: 5px;
-    justify-content: space-around;
-    margin: 2em auto; 
-    display: flex;
-    flex-direction: column;
-    /* display: none; */
+  width: 100%;
+  height: auto;
+  border: 1px solid #999;
+  border-radius: 5px;
+  justify-content: space-around;
+  margin: 2em auto;
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  display: none;
 }
-.q-box .btn {
-    background-color: rgb(94, 14, 94);
-    color: #fff;
-    padding: 5px;
-    margin: 5px ;
-    border-radius: 5px;
-    width: 50%;
-    max-width: 350px;
-
+#question-title {
+  width: 100%;
 }
-.q-box .btn:hover {
-    background-color: rgb(95, 65, 95);
-    cursor: pointer;
+.q-box .btn, #start-quiz, #restart-quiz, #clear-scores {
+  background-color: rgb(94, 14, 94);
+  color: #fff;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+  width: 50%;
+  max-width: 350px;
 }
-#correct, #wrong {
-    color: #999;
-    font-size: 18px;
-    border-top: 1px solid #999;
-    width: 100%;
-    /* display: none; */
+button {
+  background-color: rgb(95, 65, 95);
+  cursor: pointer;
+}
+#score-section, #timer-section, #final-section {
+  border-radius: 5px;
+  justify-content: space-around;
+  padding: 2em;
+  border: 1px solid #999;
+  display: none;
+  margin: 1em 0;
+}
+#timer-section {
+  display: block;
+}
+#correct,
+#wrong {
+  color: #999;
+  font-size: 18px;
+  border-top: 1px solid #999;
+  width: 100%;
+  display: none;
 }
 .visible {
-    display: block;
+  display: block !important;
+}
+.hide {
+  display: none !important;
 }
