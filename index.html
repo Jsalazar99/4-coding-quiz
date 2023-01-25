@@ -10,8 +10,11 @@
 <body>
     <h1>Module 4 Quiz Challenge</h1>
     <main id="container">
+        <div id="view-high-scores">
+            <a href="#" name="high-scores">View High Scores</a>
+        </div>
         <div id="intro-menu">
-            <h4>Intro text section is right here. There are 4 multiple choice questions.  Let's start the quiz.</h4>
+            <h4>Intro text section is right here. There are 4 multiple choice questions.  Every incorrect answer subtracts 5 seconds from the timer. Let's start the quiz.</h4>
             <button id="start-quiz" name="submit">Start Quiz</button>
         </div>
         <div class="q-box" id="q-1">
@@ -31,12 +34,13 @@
         <div id="timer-section">
             <p id="timer-text">75 seconds to start</p>
         </div>
+        <form id="enter-score" class="hide">
+            <p>Enter your initials:</p>
+            <input type="text" id="input-name" placeholder="name">
+            <button id="submit-name">Submit</button>
+        </form>
         <div id="score-section">
-            <span id="enter-score">
-                <p>Enter your initials:</p>
-                <input type="text" id="input-name" placeholder="name">
-                <button id="submit-name">Submit</button>
-            </span>
+           
         </div>
         <div id="final-section">
             <p>Final scores:</p>

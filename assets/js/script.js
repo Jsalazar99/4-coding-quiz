@@ -138,11 +138,9 @@ function checkAnswer(event) {
         }
     }
 }
-
-/*
-WHEN all questions are answered or the timer reaches 0
-THEN the game is over */
+// event listener for high scores 
 let submitName = document.getElementById("submit-name");
+let enterScore = document.getElementById("enter-score");
 submitName.addEventListener("click", saveHighScores);
 
 // WHEN the game is over - THEN I can save my initials and my score 
@@ -151,7 +149,9 @@ function endQuiz() {
     //let initials = scoreSection.input[initials].value;
     scoreSection.classList.add("visible");
     finalSection.classList.add("visible");
-    scoreSection.textContent = "Your score: " + score;
+    enterScore.classList.remove("hide");
+    questionElement.classList.remove("visible");
+    scoreSection.textContent = "Great job! Your score: " + score;
     timerSection.textContent = "Time is up! Quiz over.";
 };
 
@@ -171,7 +171,8 @@ restartQuiz.addEventListener("click", function() {
     qSection.classList.remove("visible");
     scoreSection.classList.remove("visible");
     finalSection.classList.remove("visible");
-    timerSection.textContent = "75 seconds to start";
+    timerSection.textContent = timerCount;
+    timerCount = 75;
     currentQuestionIndex = 0;    
 });
 
@@ -185,40 +186,48 @@ function saveHighScores() {
         score: score,
     }
     
-    localStorage.setItem(userHighScore) || [];
-    
+    localStorage.setItem("userHighScore", JSON.stringify(userHighScore));
     // var finalScore = score;
 }
+
 // function for initials input  
 //var submitName = document.getElementById("submit-name");
-const finalScore = document.querySelector("final-score");
+var finalScore = document.querySelector("high-scores");
+var initials = document.querySelector("#input-name"); 
 
 submitName.addEventListener("click", function() {
-    
-    var initials = document.querySelector("#input-name").value; 
+    if (initials.value === "") {
+        alert("Please enter initials!");
+        return;
+    }
     console.log(initials);
     finalScore.textContent = `Initials: ${initials} Score: ${score}`;
 
     localStorage.setItem("initials", JSON.stringify(initials));
 });
 
+// array for high scores
+var scoreList = [];
+var viewHighScores = document.querySelector("#view-high-scores");
+
 function renderHighScores() {
-    document.textContent.textHighScore = userHighScore;
+    // create elements in list for each score
+    finalScore.innerHTML = "";
+    finalScore.textContent = scoreList.length;
 
+    for (var i = 0; i < scoreList.length; i++) {
+        var scores = scoreList[i];
+        
+        var li = document.createElement("li");
+        li.textContent = scores;
+        li.setAttribute("data-index", i);
 
+        scoreList.appendChild(li);
+    }
 }
+viewHighScores.addEventListener("click", renderHighScores);
+
 function renderInitials() {
     finalSection.textContent = initials;
 }
 
-/*
-function saveLastGrade() {
-    // Save related form data as an object
-    var studentGrade = {
-      student: student.value,
-      grade: grade.value,
-      comment: comment.value.trim()
-    };
-    // Use .setItem() to store object in storage and JSON.stringify to convert it as a string
-    localStorage.setItem("studentGrade", JSON.stringify(studentGrade));
-  } */

@@ -38,7 +38,7 @@ h1 {
 #question-title {
   width: 100%;
 }
-.q-box .btn, #start-quiz, #restart-quiz, #clear-scores {
+.q-box .btn, #start-quiz, #restart-quiz, #clear-scores, #submit-name {
   background-color: rgb(94, 14, 94);
   color: #fff;
   padding: 5px;
@@ -51,13 +51,16 @@ button {
   background-color: rgb(95, 65, 95);
   cursor: pointer;
 }
-#score-section, #timer-section, #final-section {
+#score-section, #timer-section, #final-section, #enter-score {
   border-radius: 5px;
   justify-content: space-around;
   padding: 2em;
   border: 1px solid #999;
   display: none;
   margin: 1em 0;
+}
+#enter-score {
+  display: block;
 }
 #timer-section {
   display: block;
