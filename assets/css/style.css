@@ -38,7 +38,7 @@ h1 {
 #question-title {
   width: 100%;
 }
-.q-box .btn, #start-quiz {
+.q-box .btn, #start-quiz, #restart-quiz, #clear-scores {
   background-color: rgb(94, 14, 94);
   color: #fff;
   padding: 5px;
@@ -47,7 +47,7 @@ h1 {
   width: 50%;
   max-width: 350px;
 }
-.q-box .btn:hover, #start-quiz:hover {
+button {
   background-color: rgb(95, 65, 95);
   cursor: pointer;
 }
@@ -57,6 +57,7 @@ h1 {
   padding: 2em;
   border: 1px solid #999;
   display: none;
+  margin: 1em 0;
 }
 #timer-section {
   display: block;

@@ -31,36 +31,27 @@ var qSection = document.querySelector(".q-box");
 var qText = document.querySelector("#qText");
 let question = questionInfo[currentQuestionIndex].question;
 let answer = questionInfo[currentQuestionIndex].answer;
-// var index = 0;
 var timerCount = 75;
 var timerText = document.querySelector("#timer-text");
 
-var scoreSection = document.querySelector("#score-section");
-var finalSection = document.querySelector("#final-section");
+let scoreSection = document.querySelector("#score-section");
+let finalSection = document.querySelector("#final-section");
+let timerSection = document.getElementById("timer-section");
 
-// Psuedocode begins here 
 let start = document.querySelector("#start-quiz");
-/*  start button clicked to run function */
-start.addEventListener("click", startQuiz);
 
 function startQuiz() {
+    // removes intro text/section and displays random question 
     introMenu.classList.add("hide");
     qSection.classList.add("visible");
-    // runQuestions();
     startTimer();
     getQuestion();
 }
+/*  start button clicked to run function */
+start.addEventListener("click", startQuiz);
 
 console.log(startQuiz);
 
-// removes intro text/section and displays random question 
-/* function runQuestions() {
-    qText.textContent = questionInfo[index].question;
-    questionOne.textContent = questionInfo[index].options[0];
-    questionTwo.textContent = questionInfo[index].options[1];
-    questionThree.textContent = questionInfo[index].options[2];
-    questionFour.textContent = questionInfo[index].options[3];
-} */
 // timer starts - setInterval / clearInterval timer 
 function startTimer() {
     timerInterval = setInterval(function () {
@@ -75,15 +66,12 @@ function startTimer() {
 }
 
 // let btnClick = document.querySelector("choiceNode");
-
 function getQuestion() {
     var currentQuestion = questionInfo[currentQuestionIndex];
     var questionTitle = currentQuestion.question;
     
     questionElement.innerHTML = "<p>" + currentQuestion.question + "</p>";
     answer = currentQuestion.answer;
-    // titleElement.appendChild(questionTitle);
-    // questionTitle.innerHTML = "<p>" + currentQuestion.question + "</p>";
     // buttons clicked to run questions function  
     // answer question - presents the next question 
     for (let i = 0; i < currentQuestion.options.length; i++) {
@@ -98,8 +86,6 @@ function getQuestion() {
         
     }
     currentQuestionIndex++;
-    //  console.log(getQuestion);
-    //document.querySelector("#q-1").addEventListener("click", getQuestion);
 }
 // use event delegation in div container - activity 10 
 // use event.target 
@@ -108,24 +94,22 @@ function getQuestion() {
 // chek if event target is the actual button 
 // if false decrement time increment index and call getQuestion function 
 
-/*  Local Storage for results 
- - input from prompt  */
+//  Local Storage for results 
 // highscores in an array 
 
 // answer question - display "correct" or "wrong"
 // answer incorrectly, and time is subtracted from timer 
 let correctDiv = document.getElementById("correct");
 let wrongDiv = document.getElementById("wrong");
+let score = 0;
 
 function hideMessage() {
     correctDiv.classList.add("hide");
     wrongDiv.classList.add("hide");
 }
-
 // function if/else - check if button clicked is correct answer 
 function checkAnswer(event) {
     // let correctValue = event.target.textContent;
-    
     if (event.target.value === answer) {
         score++;
         // on to next question 
@@ -135,7 +119,7 @@ function checkAnswer(event) {
     }
     else {
         // subtract time
-        timerCount - 5;
+        timerCount = timerCount - 5;
         // display wrong div 
         wrongDiv.classList.add("visible");
         setTimeout(hideMessage, 2000);
@@ -146,14 +130,13 @@ function checkAnswer(event) {
     else {
         endQuiz();
     }
-    
 }
-var score = document.getElementById("enter-final");
+
 /*
 WHEN all questions are answered or the timer reaches 0
 THEN the game is over */
 function highscores() {
-    var initials = scoreSection.input[initials].value;
+    // var initials = scoreSection.input[initials].value;
     
     // var finalScore = score;
 }
@@ -166,25 +149,30 @@ submitName.addEventListener("click", highscores);
 // localStorage.setItem(finalScore);
 
 function endQuiz() {
-   // window.alert("Your score: \nCorrect: " + corAnswers + "\nIncorrect: " + wrongAnswers);
-
     clearInterval(timerInterval);
-
+    //let initials = scoreSection.input[initials].value;
     scoreSection.classList.add("visible");
-    scoreSection.textContent = finalScore + "<br>" + initials;
+    finalSection.classList.add("visible");
+    scoreSection.textContent = "Your score: " + score; //+ "<br>" + initials;
     timerSection.textContent = "Time is up! Quiz over.";
 };
 
-// function for restart quiz 
+let clearScore = document.getElementById("clear-scores");
+let restartQuiz = document.getElementById("restart-quiz");
 
 // function for clearing the scores 
-function clearScore() {
+clearScore.addEventListener("click", function () {
     localStorage.clear();
     scoreSection.textContent = "";
-}
-/* clearScore.addEventListener("click", function () {
-    var clearScore = localStorage.clear();
-    clearScore.textContent = "";
-}); */
+}); 
+
+// function for restart quiz 
+restartQuiz.addEventListener("click", function() {
+    introMenu.classList.remove("hide");
+    qSection.classList.remove("visible");
+    scoreSection.classList.remove("visible");
+    finalSection.classList.remove("visible");
+    timerSection.textContent = "75 seconds to start";
+});
 
 // function for ...?
