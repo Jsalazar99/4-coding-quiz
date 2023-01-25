@@ -80,13 +80,15 @@ function getQuestion() {
         choiceNode.setAttribute("class", "btn");
         choiceNode.setAttribute("value", nextQ);
         choiceNode.textContent = nextQ;
-        questionElement.appendChild(choiceNode);
-
-        choiceNode.addEventListener("click", checkAnswer);
         
+
+        
+        questionElement.appendChild(choiceNode);
     }
     currentQuestionIndex++;
 }
+
+questionElement.addEventListener("click", checkAnswer);
 // use event delegation in div container - activity 10 
 // use event.target 
 // chek if textcontent of button is equak to correct answer
@@ -110,50 +112,46 @@ function hideMessage() {
 // function if/else - check if button clicked is correct answer 
 function checkAnswer(event) {
     // let correctValue = event.target.textContent;
-    if (event.target.value === answer) {
-        score++;
-        // on to next question 
-        correctDiv.classList.add("visible");
-        setTimeout(hideMessage, 2000);
-        // display correct div 
-    }
-    else {
-        // subtract time
-        timerCount = timerCount - 5;
-        // display wrong div 
-        wrongDiv.classList.add("visible");
-        setTimeout(hideMessage, 2000);
-    }
-    if (currentQuestionIndex < questionInfo.length) {
-        getQuestion();
-    }
-    else {
-        endQuiz();
+    if (event.target.nodeName == "BUTTON") {
+        if (event.target.value === answer) {
+            console.log("hello!");
+            score++;
+            // on to next question 
+            correctDiv.classList.remove("hide");
+            correctDiv.classList.add("visible");
+            setTimeout(hideMessage, 2000);
+            // display correct div 
+        }
+        else {
+            // subtract time
+            timerCount = timerCount - 5;
+            // display wrong div 
+            wrongDiv.classList.remove("hide");
+            wrongDiv.classList.add("visible");
+            setTimeout(hideMessage, 2000);
+        }
+        if (currentQuestionIndex < questionInfo.length) {
+            getQuestion();
+        }
+        else {
+            endQuiz();
+        }
     }
 }
 
 /*
 WHEN all questions are answered or the timer reaches 0
 THEN the game is over */
-function highscores() {
-    // var initials = scoreSection.input[initials].value;
-    
-    // var finalScore = score;
-}
-
 let submitName = document.getElementById("submit-name");
-submitName.addEventListener("click", highscores);
+submitName.addEventListener("click", saveHighScores);
 
 // WHEN the game is over - THEN I can save my initials and my score 
-// localStorage.setItem("initials", JSON.stringify(initials));
-// localStorage.setItem(finalScore);
-
 function endQuiz() {
     clearInterval(timerInterval);
     //let initials = scoreSection.input[initials].value;
     scoreSection.classList.add("visible");
     finalSection.classList.add("visible");
-    scoreSection.textContent = "Your score: " + score; //+ "<br>" + initials;
+    scoreSection.textContent = "Your score: " + score;
     timerSection.textContent = "Time is up! Quiz over.";
 };
 
@@ -163,7 +161,8 @@ let restartQuiz = document.getElementById("restart-quiz");
 // function for clearing the scores 
 clearScore.addEventListener("click", function () {
     localStorage.clear();
-    scoreSection.textContent = "";
+    score = 0;
+    scoreSection.textContent = "Your score: " + score;
 }); 
 
 // function for restart quiz 
@@ -176,4 +175,50 @@ restartQuiz.addEventListener("click", function() {
     currentQuestionIndex = 0;    
 });
 
-// function for ...?
+
+// function for highScores 
+function saveHighScores() {
+    
+    var textHighScore = document.getElementById("high-scores");
+    var userHighScore = {
+        user: initials, 
+        score: score,
+    }
+    
+    localStorage.setItem(userHighScore) || [];
+    
+    // var finalScore = score;
+}
+// function for initials input  
+//var submitName = document.getElementById("submit-name");
+const finalScore = document.querySelector("final-score");
+
+submitName.addEventListener("click", function() {
+    
+    var initials = document.querySelector("#input-name").value; 
+    console.log(initials);
+    finalScore.textContent = `Initials: ${initials} Score: ${score}`;
+
+    localStorage.setItem("initials", JSON.stringify(initials));
+});
+
+function renderHighScores() {
+    document.textContent.textHighScore = userHighScore;
+
+
+}
+function renderInitials() {
+    finalSection.textContent = initials;
+}
+
+/*
+function saveLastGrade() {
+    // Save related form data as an object
+    var studentGrade = {
+      student: student.value,
+      grade: grade.value,
+      comment: comment.value.trim()
+    };
+    // Use .setItem() to store object in storage and JSON.stringify to convert it as a string
+    localStorage.setItem("studentGrade", JSON.stringify(studentGrade));
+  } */
