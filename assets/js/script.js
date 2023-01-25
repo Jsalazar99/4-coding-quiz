@@ -173,6 +173,7 @@ restartQuiz.addEventListener("click", function() {
     scoreSection.classList.remove("visible");
     finalSection.classList.remove("visible");
     timerSection.textContent = "75 seconds to start";
+    currentQuestionIndex = 0;    
 });
 
 // function for ...?
