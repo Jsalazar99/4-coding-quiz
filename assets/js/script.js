@@ -6,7 +6,6 @@ const questionInfo = [
     {
         question: "Which HTML tag is a link?",
         options: ["<link>", "<body>", "<img>", "<div>"],
-        // answer: questionInfo.options[0],
         answer: "<link>",
     },
     {
@@ -69,7 +68,7 @@ function startTimer() {
 function getQuestion() {
     var currentQuestion = questionInfo[currentQuestionIndex];
     var questionTitle = currentQuestion.question;
-    
+
     questionElement.innerHTML = "<p>" + currentQuestion.question + "</p>";
     answer = currentQuestion.answer;
     // buttons clicked to run questions function  
@@ -80,27 +79,13 @@ function getQuestion() {
         choiceNode.setAttribute("class", "btn");
         choiceNode.setAttribute("value", nextQ);
         choiceNode.textContent = nextQ;
-        
-
-        
         questionElement.appendChild(choiceNode);
     }
     currentQuestionIndex++;
 }
-
 questionElement.addEventListener("click", checkAnswer);
-// use event delegation in div container - activity 10 
-// use event.target 
-// chek if textcontent of button is equak to correct answer
-//  if true increment score and call getQuestion function 
-// chek if event target is the actual button 
-// if false decrement time increment index and call getQuestion function 
 
-//  Local Storage for results 
-// highscores in an array 
-
-// answer question - display "correct" or "wrong"
-// answer incorrectly, and time is subtracted from timer 
+//  display "correct" or "wrong" div
 let correctDiv = document.getElementById("correct");
 let wrongDiv = document.getElementById("wrong");
 let score = 0;
@@ -111,7 +96,7 @@ function hideMessage() {
 }
 // function if/else - check if button clicked is correct answer 
 function checkAnswer(event) {
-    // let correctValue = event.target.textContent;
+    //  if true increment score & call getQuestion function 
     if (event.target.nodeName == "BUTTON") {
         if (event.target.value === answer) {
             console.log("hello!");
@@ -122,8 +107,8 @@ function checkAnswer(event) {
             setTimeout(hideMessage, 2000);
             // display correct div 
         }
+        // if false decrement timerCount & call getQuestion function 
         else {
-            // subtract time
             timerCount = timerCount - 5;
             // display wrong div 
             wrongDiv.classList.remove("hide");
@@ -138,15 +123,9 @@ function checkAnswer(event) {
         }
     }
 }
-// event listener for high scores 
-let submitName = document.getElementById("submit-name");
-let enterScore = document.getElementById("enter-score");
-submitName.addEventListener("click", saveHighScores);
-
 // WHEN the game is over - THEN I can save my initials and my score 
 function endQuiz() {
     clearInterval(timerInterval);
-    //let initials = scoreSection.input[initials].value;
     scoreSection.classList.add("visible");
     finalSection.classList.add("visible");
     enterScore.classList.remove("hide");
@@ -163,37 +142,38 @@ clearScore.addEventListener("click", function () {
     localStorage.clear();
     score = 0;
     scoreSection.textContent = "Your score: " + score;
-}); 
+});
 
 // function for restart quiz 
-restartQuiz.addEventListener("click", function() {
+restartQuiz.addEventListener("click", function () {
     introMenu.classList.remove("hide");
     qSection.classList.remove("visible");
     scoreSection.classList.remove("visible");
     finalSection.classList.remove("visible");
+    enterScore.classList.add("hide");
     timerSection.textContent = timerCount;
     timerCount = 75;
-    currentQuestionIndex = 0;    
+    currentQuestionIndex = 0;
 });
+// event listener for high scores 
+let submitName = document.getElementById("submit-name");
+let enterScore = document.getElementById("enter-score");
 
+submitName.addEventListener("click", function() {
 
-// function for highScores 
-function saveHighScores() {
-    
-    var textHighScore = document.getElementById("high-scores");
-    var userHighScore = {
-        user: initials, 
+    let textHighScore = document.getElementById("high-scores");
+    let userHighScore = {
+        user: initials,
         score: score,
     }
-    
-    localStorage.setItem("userHighScore", JSON.stringify(userHighScore));
+    localStorage.setItem("textHighScore", JSON.stringify(userHighScore));
     // var finalScore = score;
-}
+});
 
 // function for initials input  
 //var submitName = document.getElementById("submit-name");
 var finalScore = document.querySelector("high-scores");
-var initials = document.querySelector("#input-name"); 
+var initials = document.querySelector("#input-name");
 
 submitName.addEventListener("click", function() {
     if (initials.value === "") {
@@ -201,6 +181,7 @@ submitName.addEventListener("click", function() {
         return;
     }
     console.log(initials);
+    finalScore = initials.value;
     finalScore.textContent = `Initials: ${initials} Score: ${score}`;
 
     localStorage.setItem("initials", JSON.stringify(initials));
@@ -217,7 +198,7 @@ function renderHighScores() {
 
     for (var i = 0; i < scoreList.length; i++) {
         var scores = scoreList[i];
-        
+
         var li = document.createElement("li");
         li.textContent = scores;
         li.setAttribute("data-index", i);
